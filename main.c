@@ -169,7 +169,7 @@ int main(int argc, char* argv[]) {
   size_t binary_size;
   uint8_t* binary = NULL;
   if (binary_path) {
-    load_file(binary_path, &binary_size);
+    binary = load_file(binary_path, &binary_size);
     if (binary_size >= max_binary_size) {
       printf("Using %.1f%% of image space (%zu / %zu bytes).\n", 100.0f * binary_size / max_binary_size, binary_size, max_binary_size);
       free(binary);
