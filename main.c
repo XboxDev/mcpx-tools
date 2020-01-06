@@ -220,9 +220,7 @@ int main(int argc, char* argv[]) {
     //FIXME: report error when write failed
   }
 
-  //FIXME: Check if these are null before free'ing
   free(flash);
   free(mcpx);
-
   return 0;
 }
