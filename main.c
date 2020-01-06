@@ -125,7 +125,7 @@ static void tea_attack(uint8_t* flash, size_t flash_size, uint32_t target) {
 
 static void usage(const char* program) {
   fprintf(stderr, "Usage %s <version> <flash-path> [-i <binary-path>] [-m <mcpx-path>] [-o <output-path>]\n"
-                  "version must be: flash, mcpx, 1.0, 1.1\n",
+                  "version must be: 1.0 or 1.1\n",
           program);
 }
 
@@ -184,13 +184,6 @@ int main(int argc, char* argv[]) {
 
   uint8_t* mcpx = mcpx_path ? load_file(mcpx_path, NULL) : NULL;
   //FIXME: If mcpx path is given and failed to load: report error
-
-  if (!strcmp(version, "flash")) {
-    version = "1.0"; // FIXME: !!!
-  } else if (!strcmp(version, "mcpx")) {
-    //FIXME: Check if mcpx was even loaded
-    version = "1.1"; // FIXME: !!!
-  }  
 
   void(*check)(const uint8_t* flash, size_t flash_size, const uint8_t* mcpx) = NULL;
   void(*attack)(uint8_t* flash, size_t flash_size, uint32_t target) = NULL;
