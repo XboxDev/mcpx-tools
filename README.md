@@ -8,9 +8,7 @@ A script to annotate and disassemble the MCPX ROM using [objdump](https://en.wik
 disassemble-mcpx.sh <path to MCPX ROM>
 ```
 
-### mcpx-attacks
-
-*(This tool needs to be compiled first)*
+### mcpx-attack
 
 Tool to display the following exploits:
 
@@ -26,3 +24,5 @@ mkdir build
 cmake ..
 make
 ```
+
+To see the usage information, run the tool without additional arguments.
