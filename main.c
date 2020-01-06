@@ -208,14 +208,18 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  check(flash, flash_size, mcpx);
+  if (mcpx) {
+    check(flash, flash_size, mcpx);
+  }
 
   attack(flash, flash_size, target);
   if (binary) {
     memcpy(flash_mem(flash, flash_size, target), binary, binary_size);
   }
 
-  check(flash, flash_size, mcpx);
+  if (mcpx) {
+    check(flash, flash_size, mcpx);
+  }
 
   if (output_path) {
     printf("Trying to export to '%s'.\n", output_path);
