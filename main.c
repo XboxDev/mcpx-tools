@@ -170,7 +170,7 @@ int main(int argc, char* argv[]) {
   // - MCPX 1.0: 0x39E00 (228 kiB)
   // - MCPX 1.1: 0x3D400 (242 kiB)
   // (These ranges are rough estimates, it replaces kernel and kernel data)
-  uint32_t target = 0xFFF41000; // We use the second bank, just in case you need more memory
+  uint32_t target = 0xFFFC1000;
   size_t max_binary_size = 224 * 1024;
   size_t binary_size;
   uint8_t* binary = NULL;
