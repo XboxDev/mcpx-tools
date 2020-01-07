@@ -32,7 +32,7 @@ static void rc4_check(const uint8_t* flash, size_t flash_size, const uint8_t* mc
 static void rc4_attack(uint8_t* flash, size_t flash_size, uint32_t target) {
   // The first DWORD in the 2BL is a pointer to the entry point.. perfect!
   uint32_t* attack = (uint32_t*)flash_mem(flash, flash_size, -0x6200);
-  attack[0] = target;
+  attack[0] = target ^ 0x79277645;
 }
 
 static void swap(uint32_t* a, uint32_t* b) {
