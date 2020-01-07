@@ -91,8 +91,8 @@ static void tea_attack(uint8_t* flash, size_t flash_size, uint32_t target) {
   uint32_t hacked = 0x07FD588;
 
   // Also patch the xcodes to write a jump target to RAM
-  for (unsigned int i = 0; i < 0x1000; i++) {
-    uint32_t address = 0x80 + i * 9;
+  uint32_t address = 0x80;
+  while(address < 0x1000) {
 
     // Check if this is an EXIT instruction
     if (flash[address] == 0xEE) {
@@ -103,22 +103,28 @@ static void tea_attack(uint8_t* flash, size_t flash_size, uint32_t target) {
 
       // Install a patch (a `jmp` from our target to elsewhere)
       {
-        flash[address + 0] = 0x09;                    // POKE
-        *(uint32_t*)&flash[address + 1] = hacked;     // Target address
-        *(uint32_t*)&flash[address + 5] = 0xE9E9E9E9; // `jmp` opcode
+        flash[address + 0] = 0x03;                             // POKE
+        *(uint32_t*)&flash[address + 1] = hacked;              // Target address
+        *(uint32_t*)&flash[address + 5] = 0xE9;                // `jmp` opcode
         address += 9;
       }
       {
-        flash[address + 0] = 0x09;                    // POKE
-        *(uint32_t*)&flash[address + 1] = hacked + 1; // Target address
-        *(uint32_t*)&flash[address + 5] = target;     // `jmp` target
+        flash[address + 0] = 0x03;                             // POKE
+        *(uint32_t*)&flash[address + 1] = hacked + 1;          // Target address
+        *(uint32_t*)&flash[address + 5] = target - hacked - 5; // `jmp` target
         address += 9;
       }
 
       // Move the EXIT to the end
       memcpy(&flash[address], tmp, 9);
 
+      // Stop looking to prevent patching of non X-Code memory
+      break;
+
     }
+
+    // Advance to next instruction
+    address += 9;
   }
 
 }
